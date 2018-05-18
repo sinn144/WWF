@@ -11,10 +11,9 @@ int main () {
     return 0;
 }
 
-void FileOpen(double a, int n, char str[n])
+void FileOpera(FILE *fp,double a, int n, char str[n])
 {
     char fn[n];
-    FILE *fp;
     sprintf(fn, "%s.txt", str);
     fp = fopen(fn, "w");
 
@@ -23,26 +22,28 @@ void FileOpen(double a, int n, char str[n])
         printf("Cannot open %s \n", fn);
         exit(1);
     }
+
+    fclose(fp);
 }
 
 void DataWrite (FILE *fp,int DataNum,double Value[DataNum])
 {
-    for(size_t i = 0; i < DatanNum; i++)
+    for(size_t i = 0; i < DataNum; i++)
     {
         fprintf(fp,"%d ",Value[i]);
     }   fprintf(fp,"\n");
 }
 
-void StoreValue(FILE *fp,fpint sec,double DivTimes,double &label[2][Divtime])
+void StoreValue(FILE *fp,double DivTimes,double &label[2])
 {
     // defined dif size
     double delx = 1.0/DivTimes;
 
     for(size_t t = 0; t < (size_t)DivTimes; t++)
     {
-        label[0][t] = delx*t;
-        label[1][t] = WaveFun(sec,1.0,label[0]);
-        DataWrite(fp,1,label[][t]);
+        label[0] = delx*t;
+        label[1] = WaveFun(sec,1.0,label[0]);
+        DataWrite(fp,1,label);
     }
     
 }
