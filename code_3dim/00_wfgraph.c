@@ -4,10 +4,11 @@ int main()
 {
 
     FILE* fp;
-    const int DIV = 1000;
-    const int N   = 2;
-    const char str[] = "D01_graph1";
+    const int DIV = 100;
+    const int N   = 3;
+    const int M   = 3;
+    const char str[] = "D01_graph";
     
-    FileOpera(fp,DIV,N,strlen(str),str);
+    FileOpera(fp,DIV,N,M,strlen(str),str);
     return 0;
 }

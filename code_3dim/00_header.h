@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern double WaveFun(double, double, double);
-extern void StoreValue(FILE*, double, double);
-extern void DataWrite(FILE*, int, double []);
-extern void FileOpera(FILE*, double, int, int,const char [] );
+double WaveFun(double, double, double, double, double);
+void StoreValue(FILE*, double, double ,double);
+void DataWrite(FILE*, int,double []);
+void FileOpera(FILE*, double,int, int, int, const char []);
