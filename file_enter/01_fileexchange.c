@@ -3,7 +3,7 @@
 #include <string.h>
 
 void StoreValue(int row, int I, int J, int N, char con_lav[N], FILE *fp, double data[I][J]);
-void SizeDefact(FILE *fp, int *ROWM, int *COWM);
+void MatrixSizeCulc(FILE *fp, int *ROWM, int *COWM);
 
 int main()
 {
@@ -22,7 +22,7 @@ int main()
         printf("file is not exist\n");
         return 1;
     }
-    SizeDefact(fp,&ROW_MAX,&COW_MAX);
+    MatrixSizeCulc(fp,&ROW_MAX,&COW_MAX);
     printf ("%d %d \n",ROW_MAX,COW_MAX);
     fclose(fp);
 
@@ -47,6 +47,7 @@ int main()
 
 void StoreValue(int row,int I,int J,int N,char con_lav[N],FILE *fp,double data[I][J])
 {
+    // どのようにしてデータ格納しようか…
     char Temp[1000];
     fgets(con_lav, N, fp);
     
@@ -56,7 +57,7 @@ void StoreValue(int row,int I,int J,int N,char con_lav[N],FILE *fp,double data[I
     }    
 }
 
-void SizeDefact(FILE *fp,int *ROWM,int *COWM)
+void MtrxSzCulc(FILE *fp,int *ROWM,int *COWM)
 {
     int count,count_c;
     char *tor;
