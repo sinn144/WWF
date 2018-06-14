@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void StoreValue(FILE *fp, int col, int I, int J, char data_label[][col], double data[I][col]);
+void StoreValue(FILE *fp, int col, int I, int J, char data_label[][I], double data[J][I]);
 void MtrxSzCulc(FILE *fp, int *ROWM, int *COLM);
 
 int main()
@@ -15,7 +15,7 @@ int main()
     int ROW_MAX=0;
     int COL_MAX=0;
 
-    if ((fp = fopen("./file_enter/02_data.txt", "r"))== NULL)
+    if ((fp = fopen("./file_enter/00_dat.csv", "r"))== NULL)
     {
         printf("file is not exist\n");
         return 1;
@@ -32,10 +32,14 @@ int main()
 
     // ファイルの先頭に移動
 
-    for (size_t col = 0; col < ROW_MAX - 1; col++)
+    for (size_t col = 0; col < COL_MAX - 1; col++)
     {
         StoreValue(fp, col, COL_MAX, ROW_MAX , str_data_label, str_data);
-        printf("str_data_label[%ld] = %s \n",col, str_data_label[col]);
+        printf("str_data_label[%ld] = %s \n\n",col, str_data_label[col]);
+        for (size_t c = 0; c < ROW_MAX - 1; c++)
+        {
+            printf("%4.2lf \n", str_data[c][col]);
+        }
     }
 
     printf("test : %lf %s \n", str_data[0][2],str_data_label[0]);
@@ -51,17 +55,18 @@ int main()
         
     // }
     
-    // printf("a : %lf \n",str_data[0][1]);
+    printf("a : %lf \n",str_data[0][0]);
 
     fclose(fp);
     return 0;
 }
 
-void StoreValue(FILE *fp,int col,int I,int J,char data_label[][col],double data[I][col])
+void StoreValue(FILE *fp,int col,int I,int J,char data_label[][I],double data[J][I])
 {
     // strtokを用いたデータ格納の簡略化
 
     char Temp[1000];
+    double num;
     fgets(Temp, sizeof(Temp), fp);
     // printf("%s\n",Temp);
     
@@ -72,13 +77,15 @@ void StoreValue(FILE *fp,int col,int I,int J,char data_label[][col],double data[
     
 
     strcpy(data_label[col], strtok(Temp,","));
-    // printf("data_label[%d] = %s \n", col, strtok(Temp, ",")); /* カンマは外せれていた… */
+    printf("data_label[%d] = %s \n", col, data_label[col]); /* カンマは外せれていた… */
 
     for(size_t c = 0; c < J-1; c++)
     {
         // sscanf(Temp,"%lf,%[^\n]",&data[col][c],Temp);
-        char *str2 = strtok(NULL, ",");
-        printf("%s %lf \n",str2, atof(str2));
+        char *str2 = strtok(NULL, ",\n");
+        num = atof(str2);
+        printf("%10s %9.4lf \n", str2, num);
+        data[c][col] = num;
         // Caracter Pointer　が返されないといけない　メモリーの使い方の違い
         // 最後の改行
     }
